@@ -1,7 +1,41 @@
+"use client";
+import { CustomInput } from "@/common/CustomInput";
 import Image from "next/image";
 import React from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const page = () => {
+const schema = yup.object({
+  phone: yup
+    .string()
+    .required("Phone number is required")
+    .matches(`^[0-9]{10}$`, "Phone Number must be 10 digits"),
+
+  password: yup
+    .string()
+    .required("Password is required")
+    .matches(
+      `^(?=.*[A-Za-z])(?=.*\d).{6,}$`,
+      "Password must be at least 6 characters long and contain letters and numbers"
+    ),
+});
+
+const Page = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+    reset();
+  };
+
   return (
     <div className="bg-white p-5 min-h-screen w-full flex items-start md:items-center justify-center">
       {/* 1 */}
@@ -18,17 +52,22 @@ const page = () => {
       {/* 2 */}
       <div className="w-full text-darkgreen min-h-full md:min-h-[70vh] flex flex-col items-center justify-start">
         <h1 className="text-4xl font-semibold text-green">Login Form</h1>
-        <form className="min-h-full mt-10 w-10/12 md:w-8/12 mx-auto space-y-6 flex flex-col items-center justify-center">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="min-h-full mt-10 w-10/12 md:w-8/12 mx-auto space-y-6 flex flex-col items-center justify-center"
+        >
           {[
             {
               label: "Phone Number",
               placeholder: "Enter your Phone",
               type: "text",
+              name: "phone",
             },
             {
               label: "Password",
               placeholder: "Enter your Password",
               type: "password",
+              name: "password",
             },
           ].map((input, index) => (
             <CustomInput
@@ -36,6 +75,9 @@ const page = () => {
               label={input.label}
               placeholder={input.placeholder}
               type={input.type}
+              register={register}
+              registerName={input.name}
+              errors={errors}
             />
           ))}
 
@@ -55,17 +97,4 @@ const page = () => {
   );
 };
 
-const CustomInput = ({ label, type, placeholder }) => {
-  return (
-    <div className="flex flex-col gap-2 w-full">
-      <label htmlFor={label}>{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="w-full outline-0 border border-bordergreen p-2 pl-4 rounded-lg placeholder:text-fontgreen focus:ring-2 focus:ring-fontgreen transition-all duration-300"
-      />
-    </div>
-  );
-};
-
-export default page;
+export default Page;
