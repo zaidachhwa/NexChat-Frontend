@@ -1,11 +1,13 @@
 "use client";
 import { CustomInput } from "@/common/CustomInput";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import { registerUser } from "@/services/api.auth";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object({
   phone: yup
@@ -37,8 +39,11 @@ const Page = () => {
     resolver: yupResolver(schema),
   });
 
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = (data) => {
-    console.log(data);
+    registerUser(data, router, setLoading);
     reset();
   };
 
@@ -93,8 +98,13 @@ const Page = () => {
             />
           ))}
 
-          <button className="bg-green cursor-pointer hover:opacity-95 focus:scale-95 font-semibold tracking-wide text-lg text-fontgreen p-2 rounded-lg w-full mt-2 transition-all duration-300 ">
-            Register
+          <button
+            disabled={loading}
+            className={`bg-green ${
+              loading ? "cursor-not-allowed opacity-95" : "cursor-pointer"
+            } hover:opacity-95 focus:scale-95 font-semibold tracking-wide text-lg text-fontgreen p-2 rounded-lg w-full mt-2 transition-all duration-300 `}
+          >
+            {loading ? "Creating Account..." : "Register"}
           </button>
 
           <span className="text-sm mx-auto">

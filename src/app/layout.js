@@ -1,5 +1,6 @@
 import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const RobotoSans = Roboto({
   variable: "--font-roboto",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${RobotoSans.variable} ${PoppinsSans.variable} antialiased font-poppins`}
       >
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>
