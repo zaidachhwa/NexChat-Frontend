@@ -22,8 +22,8 @@ const schema = yup.object({
     .string()
     .required("Password is required")
     .matches(
-      `^(?=.*[A-Za-z])(?=.*\d).{6,}$`,
-      "Password must be at least 6 characters long and contain letters and numbers"
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$/,
+      "Password must contain letters, numbers, and a special character"
     ),
 });
 
