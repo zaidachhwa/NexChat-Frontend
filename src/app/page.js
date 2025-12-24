@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { registerUser } from "@/services/api.auth";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 const schema = yup.object({
   phone: yup
@@ -39,8 +40,7 @@ const Page = () => {
     resolver: yupResolver(schema),
   });
 
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading, router } = useAuth();
 
   const onSubmit = (data) => {
     registerUser(data, router, setLoading);
