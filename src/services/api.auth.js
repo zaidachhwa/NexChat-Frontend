@@ -31,15 +31,13 @@ export const loginUser = async (data, router, setLoading, setUser) => {
     // Save User data and token
     setUser(res.data?.user);
     localStorage.setItem("user", JSON.stringify(res.data?.user));
-
     localStorage.setItem("accessToken", res.data?.user?.accessToken);
+
     router.push("/chats");
-    console.log(res);
     return res.data;
   } catch (error) {
     const err = error?.response?.data?.message;
     toast.error(err || "Server Error");
-    console.log(err);
     return error?.response?.data?.message;
   } finally {
     setLoading(false);

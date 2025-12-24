@@ -1,7 +1,17 @@
-import React from "react";
+"use client";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const Page = () => {
-  return <div>This is the chat route</div>;
+  const { user, loading, router } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      router.replace("/login");
+    }
+  }, [user, router]);
+
+  return <div></div>;
 };
 
 export default Page;
