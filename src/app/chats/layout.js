@@ -3,7 +3,7 @@ import React from "react";
 
 const ChatLayout = ({ children }) => {
   return (
-    <section className="w-full min-h-screen bg-green p-5 flex gap-5 text-fontgreen">
+    <section className="w-full min-h-screen bg-green p-5 flex flex-col-reverse md:flex-row gap-5 text-fontgreen">
       {/* Sidebar  */}
       <SideBar />
       {/* Main section */}

@@ -46,15 +46,13 @@ const SideBar = () => {
         {sidebarIcons.map((item, index) => (
           <div
             key={index}
-            className={`relative p-3 group ${
-              path === item.href
-                ? "bg-icongreen text-darkgreen rounded-full"
-                : ""
+            className={`relative p-3 group transition rounded-full duration-400 ease-in-out ${
+              path === item.href ? "bg-icongreen text-darkgreen " : ""
             }`}
           >
             <Link href={item.href}>{item.icon}</Link>
             <div
-              className={`bg-icongreen text-darkgreen shadow w-fit px-2 text-xs rounded-md p-1 absolute top-3  hidden group-hover:block ${
+              className={`bg-icongreen text-darkgreen shadow w-fit px-2 text-xs rounded-md p-1 absolute top-3  hidden group-hover:block text-nowrap ${
                 path === item.href ? "left-14" : "left-12"
               }`}
             >
