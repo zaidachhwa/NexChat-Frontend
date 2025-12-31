@@ -11,7 +11,7 @@ const Page = () => {
     }
   }, [user, router]);
 
-  return <div></div>;
+  return <div>This is the main chat page </div>;
 };
 
 export default Page;
