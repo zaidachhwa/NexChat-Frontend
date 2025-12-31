@@ -6,9 +6,12 @@ const AuthContext = createContext();
 
 // For wrapping the main parent component
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user") || null)
-  );
+  const [user, setUser] = useState(() => {
+    if (typeof window === "undefined") return null;
+
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 

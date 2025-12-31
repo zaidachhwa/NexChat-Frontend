@@ -9,7 +9,7 @@ const ChatLayout = () => {
       {/* Main section */}
       <main className="flex-1 bg-darkgreen rounded-xl flex">
         {/* Contact */}
-        <div className="w-2/6 border-r-2 border-bordergreen"></div>
+        <div className="w-2/6 border-r-2 border-green"></div>
         {/* Main chats  */}
         <div className="w-full"></div>
       </main>
