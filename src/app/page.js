@@ -40,12 +40,16 @@ const Page = () => {
     resolver: yupResolver(schema),
   });
 
-  const { loading, setLoading, router } = useAuth();
+  const { loading, setLoading, router, user, token } = useAuth();
 
   const onSubmit = (data) => {
     registerUser(data, router, setLoading);
     reset();
   };
+
+  if (user && token) {
+    return router.push("/chats");
+  }
 
   return (
     <div className="bg-white p-5 min-h-screen w-full flex items-start md:items-center justify-center">

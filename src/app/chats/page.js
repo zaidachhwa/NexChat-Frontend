@@ -1,17 +1,11 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useAuth } from "@/context/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const Page = () => {
-  const { user, loading, router } = useAuth();
-
-  useEffect(() => {
-    if (!user) {
-      router.replace("/login");
-    }
-  }, [user, router]);
-
-  return <div>This is the main chat page </div>;
+  return (
+    <ProtectedRoute>
+      <div>This is the chat page</div>
+    </ProtectedRoute>
+  );
 };
 
 export default Page;

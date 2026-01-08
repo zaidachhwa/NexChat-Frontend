@@ -34,7 +34,11 @@ const Page = () => {
     resolver: yupResolver(schema),
   });
 
-  const { router, loading, setLoading, setUser } = useAuth();
+  const { router, loading, setLoading, setUser, user, token } = useAuth();
+
+  if (user && token) {
+    return router.push("/chats");
+  }
 
   const onSubmit = (data) => {
     loginUser(data, router, setLoading, setUser);
