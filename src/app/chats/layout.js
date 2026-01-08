@@ -1,4 +1,5 @@
 import SideBar from "@/components/SideBar";
+import SidePanel from "@/components/SidePanel";
 import React from "react";
 
 const ChatLayout = ({ children }) => {
@@ -9,9 +10,11 @@ const ChatLayout = ({ children }) => {
       {/* Main section */}
       <main className="flex-1 bg-darkgreen rounded-xl flex">
         {/* Contact */}
-        <div className="w-2/6 border-r-2 border-green"></div>
+        <div className="w-2/6 border-r-2 border-green p-4">
+          <SidePanel />
+        </div>
         {/* Main chats  */}
-        <div className="w-full">{children}</div>
+        <div className="w-full p-4">{children}</div>
       </main>
     </section>
   );

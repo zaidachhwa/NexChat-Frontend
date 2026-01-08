@@ -1,7 +1,7 @@
 "use client";
 import { CustomInput } from "@/common/CustomInput";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -36,14 +36,16 @@ const Page = () => {
 
   const { router, loading, setLoading, setUser, user, token } = useAuth();
 
-  if (user && token) {
-    return router.push("/chats");
-  }
-
   const onSubmit = (data) => {
     loginUser(data, router, setLoading, setUser);
     reset();
   };
+
+  useEffect(() => {
+    if (user && token) {
+      return router.push("/chats");
+    }
+  }, [user, token, router]);
 
   return (
     <div className="bg-white p-5 min-h-screen w-full flex items-start md:items-center justify-center">
